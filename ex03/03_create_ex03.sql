@@ -1,19 +1,22 @@
+CREATE DATABASE IF NOT EXISTS ex03;
 
-CREATE TABLE Cientificos (
-  DNI VARCHAR(8) PRIMARY KEY,
-  NomApels VARCHAR(255)
+USE ex03;
+
+CREATE TABLE cientificos (
+    dni VARCHAR(8) PRIMARY KEY,
+    nom_apels NVARCHAR(255)
 );
 
-CREATE TABLE Proyectos (
-  id CHAR(4) PRIMARY KEY,
-  Nombre VARCHAR(255),
-  Horas INT
+CREATE TABLE proyectos (
+    id CHAR(4) PRIMARY KEY,
+    nombre NVARCHAR(255),
+    horas INT
 );
 
-CREATE TABLE Asignado_A (
-  Cientifico VARCHAR(8),
-  Proyecto CHAR(4),
-  PRIMARY KEY (Cientifico, Proyecto),
-  FOREIGN KEY (Cientifico) REFERENCES Cientificos (DNI),
-  FOREIGN KEY (Proyecto) REFERENCES Proyectos (id)
+CREATE TABLE asignado_a (
+    cientifico VARCHAR(8),
+    proyecto CHAR(4),
+    PRIMARY KEY (cientifico, proyecto),
+    FOREIGN KEY (cientifico) REFERENCES cientificos(dni) ON UPDATE CASCADE ON DELETE CASCADE,
+    FOREIGN KEY (proyecto) REFERENCES proyectos(id) ON UPDATE CASCADE ON DELETE CASCADE
 );

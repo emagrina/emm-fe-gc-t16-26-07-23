@@ -1,28 +1,32 @@
-CREATE TABLE Facultad (
-  Codigo INT PRIMARY KEY,
-  Nombre VARCHAR(100)
+CREATE DATABASE IF NOT EXISTS ex05;
+
+USE ex05;
+
+CREATE TABLE facultades (
+    codigo INT PRIMARY KEY,
+    nombre NVARCHAR(100)
 );
 
-CREATE TABLE Investigadores (
-  DNI VARCHAR(8) PRIMARY KEY,
-  NomApels VARCHAR(255),
-  Facultad INT,
-  FOREIGN KEY (Facultad) REFERENCES Facultad (Codigo)
+CREATE TABLE equipos (
+    num_serie CHAR(4) PRIMARY KEY,
+    nombre NVARCHAR(100),
+    facultat INT,
+    FOREIGN KEY (facultat) REFERENCES facultades(codigo)
 );
 
-CREATE TABLE Equipos (
-  NumSerie CHAR(4) PRIMARY KEY,
-  Nombre VARCHAR(100),
-  Facultad INT,
-  FOREIGN KEY (Facultad) REFERENCES Facultad (Codigo)
+CREATE TABLE investigadores (
+    dni VARCHAR(8) PRIMARY KEY,
+    nom_apels NVARCHAR(255),
+    facultat INT,
+    FOREIGN KEY (facultat) REFERENCES facultades(codigo)
 );
 
-CREATE TABLE Reservas (
-  DNI VARCHAR(8),
-  NumSerie CHAR(4),
-  Comienzo DATETIME,
-  Fin DATETIME,
-  PRIMARY KEY (DNI, NumSerie),
-  FOREIGN KEY (DNI) REFERENCES Investigadores (DNI),
-  FOREIGN KEY (NumSerie) REFERENCES Equipos (NumSerie)
+CREATE TABLE reservas (
+    dni VARCHAR(8),
+    num_serie CHAR(4),
+    comienzo DATETIME,
+    fin DATETIME,
+    PRIMARY KEY (dni, num_serie),
+    FOREIGN KEY (dni) REFERENCES investigadores(dni) ON UPDATE CASCADE ON DELETE CASCADE,
+    FOREIGN KEY (num_serie) REFERENCES equipos(num_serie) ON UPDATE CASCADE ON DELETE CASCADE
 );

@@ -1,41 +1,59 @@
--- Insertamos 5 directores con sus respectivos despachos
--- Asumiremos que el director con DNI '11111111' es el jefe máximo, por lo que su campo DNIJefe será NULL
-INSERT INTO directores VALUES ('11111111', 'Maria González', NULL, 1);
-INSERT INTO directores VALUES ('22222222', 'Carlos Ruiz', '11111111', 2);
-INSERT INTO directores VALUES ('33333333', 'Juan Pérez', '11111111', 3);
-INSERT INTO directores VALUES ('44444444', 'Laura García', '22222222', 4);
-INSERT INTO directores VALUES ('55555555', 'Fernando López', '33333333', 5);
+USE ex01;
 
--- Actualizamos la capacidad de todos los despachos incrementándola en 5
-UPDATE despachos SET Capacidad = Capacidad + 5 WHERE Numero BETWEEN 1 AND 5;
+-- INSERTS
 
--- Actualizamos los nombres de los directores y cambiamos sus despachos
-UPDATE directores SET NomApels = 'Mariana Martínez', Despacho = 2 WHERE DNI = '11111111';
-UPDATE directores SET NomApels = 'Carlos Moreno', Despacho = 1 WHERE DNI = '22222222';
-UPDATE directores SET NomApels = 'Juanita Sánchez', Despacho = 4 WHERE DNI = '33333333';
-UPDATE directores SET NomApels = 'Lorena Torres', Despacho = 3 WHERE DNI = '44444444';
-UPDATE directores SET NomApels = 'Fernando Rodríguez', Despacho = 1 WHERE DNI = '55555555';
+INSERT INTO despachos (numero, capacidad) VALUES
+(101, 5),
+(102, 3),
+(103, 6),
+(104, 4),
+(105, 7),
+(106, 5),
+(107, 8),
+(108, 6),
+(109, 4),
+(110, 5);
 
--- Antes de eliminar a los directores, tenemos que remover sus referencias como jefes de otros directores
-UPDATE directores SET DNIJefe = NULL WHERE DNIJefe = '11111111';
-DELETE FROM directores WHERE DNI = '11111111';
+INSERT INTO directores (dni, nom_apels, dni_jefe, despacho) VALUES
+('11111111', 'Director 1', NULL, 101),
+('22222222', 'Director 2', '11111111', 102),
+('33333333', 'Director 3', '11111111', 103),
+('44444444', 'Director 4', '22222222', 104),
+('55555555', 'Director 5', '22222222', 105),
+('66666666', 'Director 6', '33333333', 106),
+('77777777', 'Director 7', '33333333', 107),
+('88888888', 'Director 8', '44444444', 108),
+('99999999', 'Director 9', '44444444', 109),
+('12345678', 'Director 10', '55555555', 110);
 
-UPDATE directores SET DNIJefe = NULL WHERE DNIJefe = '22222222';
-DELETE FROM directores WHERE DNI = '22222222';
+-- UPDATES
 
-UPDATE directores SET DNIJefe = NULL WHERE DNIJefe = '33333333';
-DELETE FROM directores WHERE DNI = '33333333';
+UPDATE despachos SET capacidad = 6 WHERE numero = 101;
+UPDATE despachos SET capacidad = 4 WHERE numero = 102;
+UPDATE despachos SET capacidad = 7 WHERE numero = 103;
+UPDATE despachos SET capacidad = 5 WHERE numero = 104;
+UPDATE despachos SET capacidad = 8 WHERE numero = 105;
+UPDATE despachos SET capacidad = 5 WHERE numero = 106;
+UPDATE despachos SET capacidad = 9 WHERE numero = 107;
+UPDATE despachos SET capacidad = 7 WHERE numero = 108;
+UPDATE despachos SET capacidad = 5 WHERE numero = 109;
+UPDATE despachos SET capacidad = 6 WHERE numero = 110;
 
--- Primero, eliminamos los directores asignados a los despachos
-DELETE FROM directores WHERE DNI = '11111111';
-DELETE FROM directores WHERE DNI = '22222222';
-DELETE FROM directores WHERE DNI = '33333333';
-DELETE FROM directores WHERE DNI = '44444444';
-DELETE FROM directores WHERE DNI = '55555555';
+UPDATE directores SET nom_apels = 'Director 11' WHERE dni = '11111111';
+UPDATE directores SET nom_apels = 'Director 12' WHERE dni = '22222222';
+UPDATE directores SET nom_apels = 'Director 13' WHERE dni = '33333333';
+UPDATE directores SET nom_apels = 'Director 14' WHERE dni = '44444444';
+UPDATE directores SET nom_apels = 'Director 15' WHERE dni = '55555555';
+UPDATE directores SET nom_apels = 'Director 16' WHERE dni = '66666666';
+UPDATE directores SET nom_apels = 'Director 17' WHERE dni = '77777777';
+UPDATE directores SET nom_apels = 'Director 18' WHERE dni = '88888888';
+UPDATE directores SET nom_apels = 'Director 19' WHERE dni = '99999999';
+UPDATE directores SET nom_apels = 'Director 20' WHERE dni = '12345678';
 
--- Ahora, podemos eliminar los despachos
-DELETE FROM despachos WHERE Numero = 1;
-DELETE FROM despachos WHERE Numero = 2;
-DELETE FROM despachos WHERE Numero = 3;
-DELETE FROM despachos WHERE Numero = 4;
-DELETE FROM despachos WHERE Numero = 5;
+-- DELETES
+
+DELETE FROM directores WHERE dni = '12345678';
+DELETE FROM directores WHERE dni = '99999999';
+DELETE FROM directores WHERE dni = '88888888';
+DELETE FROM directores WHERE dni = '77777777';
+DELETE FROM directores WHERE dni = '66666666';

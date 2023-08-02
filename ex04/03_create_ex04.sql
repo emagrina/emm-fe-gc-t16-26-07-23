@@ -1,25 +1,29 @@
+CREATE DATABASE IF NOT EXISTS ex04;
+
+USE ex04;
+
 CREATE TABLE productos (
-  codigo INT AUTO_INCREMENT PRIMARY KEY,
-  Nombre VARCHAR(100),
-  Precio INT
+    codigo INT AUTO_INCREMENT PRIMARY KEY,
+    nombre NVARCHAR(100),
+    precio INT
 );
 
-CREATE TABLE Maquinas_registradoras (
-  codigo INT PRIMARY KEY,
-  piso INT
+CREATE TABLE maquinas_registradas (
+    codigo INT AUTO_INCREMENT PRIMARY KEY,
+    piso INT
 );
 
-CREATE TABLE Cajeros (
-  codigo INT AUTO_INCREMENT PRIMARY KEY,
-  NomApels VARCHAR(255)
+CREATE TABLE cajeros (
+    codigo INT AUTO_INCREMENT PRIMARY KEY,
+    nom_apels NVARCHAR(255)
 );
 
-CREATE TABLE Ventas (
-  Cajero INT,
-  Maquina INT,
-  Producto INT,
-  PRIMARY KEY (Cajero, Maquina, Producto),
-  FOREIGN KEY (Cajero) REFERENCES Cajeros (codigo),
-  FOREIGN KEY (Maquina) REFERENCES Maquinas_registradoras (codigo),
-  FOREIGN KEY (Producto) REFERENCES productos (codigo)
+CREATE TABLE ventas (
+    cajero INT,
+    maquina INT,
+    producto INT,
+    PRIMARY KEY (cajero, maquina, producto),
+    FOREIGN KEY (cajero) REFERENCES cajeros(codigo) ON UPDATE CASCADE ON DELETE CASCADE,
+    FOREIGN KEY (maquina) REFERENCES maquinas_registradas(codigo) ON UPDATE CASCADE ON DELETE CASCADE,
+    FOREIGN KEY (producto) REFERENCES productos(codigo) ON UPDATE CASCADE ON DELETE CASCADE
 );
